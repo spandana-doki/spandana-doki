@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+void rotateRow(int arr[], int size) {
+    int temp = arr[size - 1];
+    
+    for (int i = size - 1; i > 0; i--) {
+        arr[i] = arr[i - 1];
+    }
+    
+    arr[0] = temp;
+}
+
+int main() {
+    int rows, cols, rotations;
+    
+    printf("Enter the number of rows and columns of the 2D array: ");
+    scanf("%d %d", &rows, &cols);
+    
+    int arr[rows][cols];
+    
+    printf("Enter the elements of the 2D array:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            scanf("%d", &arr[i][j]);
+        }
+    }
+    
+    printf("Enter the number of rotations: ");
+    scanf("%d", &rotations);
+    
+    for (int i = 0; i < rows; i++) {
+        rotateRow(arr[i], cols);
+    }
+    
+    printf("Array after %d rotations:\n", rotations);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%d ", arr[i][j]);
+        }
+        printf("\n");
+    }
+    
+    return 0;
+}
