@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+typedef struct Node Node;
+
+Node* createNode(int value) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertEnd(Node** head, int value) {
+    Node* newNode = createNode(value);
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        Node* temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+void printList(Node* head) {
+    Node* temp = head;
+    while (temp != NULL) {
+        printf("%d", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+Node* addNumbers(Node* num1, Node* num2) {
+    Node* result = NULL;
+    int carry = 0;
+
+    while (num1 != NULL || num2 != NULL) {
+        int sum = carry;
+        if (num1 != NULL) {
+            sum += num1->data;
+            num1 = num1->next;
+        }
+        if (num2 != NULL) {
+            sum += num2->data;
+            num2 = num2->next;
+        }
+        carry = sum / 10;
+        insertEnd(&result, sum % 10);
+    }
+
+    if (carry > 0) {
+        insertEnd(&result, carry);
+    }
+
+    return result;
+}
+
+int main() {
+    Node* number1 = NULL;
+    Node* number2 = NULL;
+
+    // Input numbers as strings and convert them to linked lists
+    char num1Str[100], num2Str[100];
+    printf("Enter the first number: ");
+    scanf("%s", num1Str);
+    printf("Enter the second number: ");
+    scanf("%s", num2Str);
+
+    for (int i = 0; num1Str[i] != '\0'; i++) {
+        insertEnd(&number1, num1Str[i] - '0');
+    }
+
+    for (int i = 0; num2Str[i] != '\0'; i++) {
+        insertEnd(&number2, num2Str[i] - '0');
+    }
+
+    Node* result = addNumbers(number1, number2);
+
+    printf("Sum of the numbers: ");
+    printList(result);
+
+    return 0;
+}
