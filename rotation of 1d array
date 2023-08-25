@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+void rotate(int arr[], int n, int k) {
+    int temp[k];
+    for (int i = 0; i < k; i++) {
+        temp[i] = arr[n - k + i];
+    }
+
+    for (int i = n - 1; i >= k; i--) {
+        arr[i] = arr[i - k];
+    }
+
+    for (int i = 0; i < k; i++) {
+        arr[i] = temp[i];
+    }
+}
+
+void displayArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int n; // Number of elements in the array
+    int k; // Number of positions to rotate
+    
+    printf("Enter the number of elements in array");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter the elements of array:");
+    for(int i=0;i<n;i++)
+    {
+    	scanf("%d",&arr[i]);
+	}
+    printf("Enter the number of positions to be rotated");
+    scanf("%d",&k);
+    printf("Original Array: ");
+    displayArray(arr, n);
+
+    rotate(arr, n, k);
+
+    printf("Rotated Array: ");
+    displayArray(arr, n);
+
+    return 0;
+}
