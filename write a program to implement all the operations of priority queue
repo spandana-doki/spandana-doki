@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct Node
+{
+    int d;   
+    int p;  
+    struct Node  *next; 
+}node;
+
+node *create(int d,int p)
+{
+    node newnode = (node)malloc(sizeof(node));
+    
+    newnode -> d = d;
+    newnode -> p = p;
+    newnode -> next = NULL;
+    
+    return newnode;
+}
+
+void enqueue(node **top,int d,int p) 
+{
+    node *newnode = create(d,p);
+    
+    if(*top == NULL || p < (*top) -> p)
+    {
+        newnode -> next = *top;
+        *top = newnode;
+    }
+    else
+    {
+        node* temp = *top;
+        while(temp -> next != NULL && temp -> next -> p <= p)
+        {
+            temp = temp -> next;
+        }
+        newnode -> next = temp -> next;
+        temp -> next = newnode;
+    }
+}
